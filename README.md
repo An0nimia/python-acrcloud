@@ -21,4 +21,4 @@ file = "audio.mp3"
 audio = acrcloud.recognizer(config, file)
 ```
 # Disclaimer
-I am not the owner of acrcloud
+I am not the owner of ACRCloud
