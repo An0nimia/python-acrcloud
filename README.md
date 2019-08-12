@@ -1,7 +1,11 @@
 # acrcloud
 
 This project has been created to detects the songs from an audio.
-	
+
+# Disclaimer
+
+- This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 * ### OS Supported ###
 	![Linux Support](https://img.shields.io/badge/Linux-Support-brightgreen.svg)
 	![macOS Support](https://img.shields.io/badge/macOS-Support-brightgreen.svg)
@@ -26,5 +30,5 @@ config = {
 
 audio = "audio.mp3"
 acr = acrcloud.ACRcloud(config)
-audio = acr.recognizer(config, audio)
+audio = acr.recognizer(audio)
 ```
