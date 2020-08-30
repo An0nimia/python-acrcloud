@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
-import time
-import hmac
-import base64
-import hashlib
-import requests
+from time import time
+from hashlib import sha1
+from requests import post
+from base64 import b64encode
+from hmac import new as hmac_new
 
 bytes_to_read = 1000000
 
@@ -12,16 +12,20 @@ class ACRcloud:
 	def __init__(self, config):
 		self.key = config['key']
 		self.secret = config['secret'].encode()
-		self.host = config['host'] + "/v1/identify"
+		self.host = "%s/v1/identify" % config['host']
 
 	def recognizer(self, audio):
-		timestamp = str(time.time())
-
-		example = base64.b64encode(
-			open(
-				audio, "rb"
-			).read(bytes_to_read)
+		timestamp = str(
+			time()
 		)
+
+		f = open(audio, "rb")
+
+		example = b64encode(
+			f.read(bytes_to_read)
+		)
+
+		f.close()
 
 		string_to_sign = (
 			"%s\n%s\n%s\n%s\n%s\n%s" 
@@ -35,11 +39,11 @@ class ACRcloud:
 			)
 		).encode()
 
-		sign = base64.b64encode(
-			hmac.new(
+		sign = b64encode(
+			hmac_new(
 				bytes(self.secret), 
-				bytes(string_to_sign), 
-				hashlib.sha1
+				bytes(string_to_sign),
+				sha1
 			).digest()
 		)
 
@@ -53,8 +57,5 @@ class ACRcloud:
 			"signature_version": "1"
 		}
 
-		result = requests.post(
-			self.host, data
-		).json()
-
+		result = post(self.host, data).json()
 		return result

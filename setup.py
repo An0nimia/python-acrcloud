@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 	name = "acrcloud",
-	version = "1.5",
+	version = "2.0",
 	description = "Detects the songs from an audio",
 	license = "CC BY-NC-SA 4.0",
 	author = "An0nimia",
